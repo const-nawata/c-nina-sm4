@@ -87,8 +87,8 @@ class ProductRepository extends ServiceEntityRepository
 		$this->processProductCategories( $product, $form_categories );
 
 		$product->setName($post['name']);
-		$product->setPrice($post['price']);
-		$product->setTradePrice($post['tradePrice']);
+		$product->setPrice(str_replace(',', '.', $post['price']));
+		$product->setTradePrice(str_replace(',', '.', $post['tradePrice']));
 		$product->setPacks($post['packs']);
 		$product->setInPack($post['inPack']);
 		$product->setOutPack($post['outPack']);
