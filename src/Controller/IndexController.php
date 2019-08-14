@@ -1,26 +1,29 @@
 <?php
 namespace App\Controller;
 
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+
+//	Annotations
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/")
- *
  * @author Nawata
- *
  */
-class IndexController extends AbstractController{
+class IndexController extends ControllerCore
+{
 
 /**
- * @Route("/")
+ * @Route("/", name="index")
+ * @param Request $request,
+ * @return Response
  */
-	public function index(){
-		$number = random_int(0, 100);
-
-		return new Response(
-			'<html><body>Lucky number: '.$number.'</body></html>'
-		);
+	public function index(Request $request):Response
+	{
+		return $this->show($request,'pages/index.twig');
 	}
+//______________________________________________________________________________
+
 }
