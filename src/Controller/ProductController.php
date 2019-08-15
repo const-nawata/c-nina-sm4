@@ -27,7 +27,6 @@ use Doctrine\ORM\QueryBuilder;
  */
 class ProductController extends ControllerCore
 {
-
 	/**
 	 * @param $productData
 	 * @return FormInterface
@@ -167,7 +166,7 @@ class ProductController extends ControllerCore
 			$con->rollBack();
 		}
 
-		return new JsonResponse([ 'success'	=> $success, 'error' => $error, 'searchStr' => $search ]);
+		return new JsonResponse([ 'success'	=> $success, 'error' => $error, 'searchStr' => $search, 'showSold' => 'checked'  ]);
 	}
 //______________________________________________________________________________
 
