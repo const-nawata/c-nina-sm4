@@ -11,7 +11,7 @@
 
 	$("#show_sold").on('change',function (event) {
 		let checked	= $(this).is(":checked") ? "checked" : "";
+		$("#searchStr").val('');
 		$("#showSold").val(checked);
 		$('form#form-resp').submit();
 	});
-
