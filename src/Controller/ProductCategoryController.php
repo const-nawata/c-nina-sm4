@@ -4,6 +4,9 @@ namespace App\Controller;
 use App\Form\ProductCategoryForm;
 use App\Entity\ProductCategory;
 
+use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
+use Doctrine\ORM\QueryBuilder;
+
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
 use Omines\DataTablesBundle\Column\TextColumn;
 
@@ -65,7 +68,6 @@ class ProductCategoryController extends ControllerCore
 			->setTemplate('pages/product_category/table.template.twig')
 			->add('name', TextColumn::class,[])
 
-
 //	----------  Left as example. See "templates/pages/product_category/table.template.twig"
 
 //			->add('isActive', TextColumn::class,[
@@ -76,9 +78,22 @@ class ProductCategoryController extends ControllerCore
 
 			->createAdapter(ORMAdapter::class, [
 				'entity' => ProductCategory::class,
+				'query' => function (QueryBuilder $builder) {
+					$builder
+						->select('pc')
+						->from(ProductCategory::class, 'pc')
+					;
+				},
+				'criteria' => [
+					function (QueryBuilder $builder) use ($post) {
+						empty( $post['showInactive'])
+							? $builder->andWhere('pc.isActive = 1')
+							: $builder->andWhere('pc.isActive = 0');
+					},
+					new SearchCriteriaProvider(),
+				],
 			])
-			->handleRequest($request)
-		;
+			->handleRequest($request);
 
 		if ($table->isCallback()) {
 			return $table->getResponse();
@@ -87,9 +102,11 @@ class ProductCategoryController extends ControllerCore
 		return $this->show($request, 'layouts/base.table.twig', [
 			'datatable'		=> $table,
 			'headerTitle'	=> 'title.category.pl',
-			'table'			=> ['width' => 4],
+			'table'			=> ['width' => 6],
 			'itemPath'		=> 'category_form',
-			'searchStr'		=> empty($post['searchStr']) ? '' : $post['searchStr']
+			'searchStr'		=> empty($post['searchStr']) ? '' : $post['searchStr'],
+			'showInactive'	=> empty($post['showInactive']) ? '' : $post['showInactive'],
+			'extaSctipt'	=> '/scripts/prod-cat.js.inc'
 		]);
 	}
 //______________________________________________________________________________

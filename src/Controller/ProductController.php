@@ -100,9 +100,9 @@ class ProductController extends ControllerCore
 				},
 				'criteria' => [
 					function (QueryBuilder $builder) use ($post) {
-						empty( !$post['showSold'])
-							? $builder->andWhere('p.packs = 0')->andWhere('p.outPack = 0')
-							: $builder->andWhere('p.packs > 0 OR p.outPack > 0');
+						empty( $post['showSold'])
+							? $builder->andWhere('p.packs > 0 OR p.outPack > 0')
+							: $builder->andWhere('p.packs = 0')->andWhere('p.outPack = 0');
 					},
 					new SearchCriteriaProvider(),
 				],

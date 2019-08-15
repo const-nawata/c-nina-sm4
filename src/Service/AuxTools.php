@@ -88,7 +88,8 @@ class AuxTools implements AuxToolsInterface
 	{
 
 		return [
-			'showSold'	=> ''
+			'showSold'	=> '',
+			'showInactive'	=> ''
 		];
 	}
 //______________________________________________________________________________
