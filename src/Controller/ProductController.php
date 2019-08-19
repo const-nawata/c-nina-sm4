@@ -99,15 +99,14 @@ class ProductController extends ControllerCore
 				},
 				'criteria' => [
 					function (QueryBuilder $builder) use ($post) {
-						!empty( $post['showActive'])
-							? $builder->andWhere('p.packs > 0 OR p.outPack > 0')
-							: $builder->andWhere('p.packs = 0')->andWhere('p.outPack = 0');
+						empty( $post['showActive'])
+							? $builder->andWhere('p.packs = 0')->andWhere('p.outPack = 0')
+							: $builder->andWhere('p.packs > 0 OR p.outPack > 0');
 					},
 					new SearchCriteriaProvider(),
 				],
 			])
-			->handleRequest($request)
-		;
+			->handleRequest($request);
 
 		if ($table->isCallback()) {
 			$response	= $table->getResponse();

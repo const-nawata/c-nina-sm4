@@ -86,9 +86,7 @@ class ProductCategoryController extends ControllerCore
 				},
 				'criteria' => [
 					function (QueryBuilder $builder) use ($post) {
-						empty( $post['showInactive'])
-							? $builder->andWhere('pc.isActive = 1')
-							: $builder->andWhere('pc.isActive = 0');
+						$builder->andWhere('pc.isActive = '.(int)(!empty( $post['showActive'])));
 					},
 					new SearchCriteriaProvider(),
 				],
@@ -105,8 +103,7 @@ class ProductCategoryController extends ControllerCore
 			'table'			=> ['width' => 6],
 			'itemPath'		=> 'category_form',
 			'searchStr'		=> empty($post['searchStr']) ? '' : $post['searchStr'],
-			'showInactive'	=> empty($post['showInactive']) ? '' : $post['showInactive'],
-			'extaSctipt'	=> '/scripts/prod-cat.js.inc'
+			'showActive'	=> empty($post['showActive']) ? '' : $post['showActive']
 		]);
 	}
 //______________________________________________________________________________
