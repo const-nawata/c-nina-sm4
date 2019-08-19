@@ -23,6 +23,7 @@
 
 <form id="form-resp" action="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" method="post">
 	<input type="hidden" name="searchStr" id="searchStr" value="{{ searchStr }}" />
+	<input type="hidden" name="showActive" id="showActive" value="{{ showActive }}" />
 </form>
 
 {% include '/dialogs/modal.twig' %}
@@ -97,6 +98,10 @@ $(function() {
 	{% if datatable != null %}
 		$('#table_body').initDataTables( {{ datatable_settings(datatable) }} )
 			.then( function() {
+				let entity	= $("table[id^='list_']").attr("id");
+				entity	= entity.split("_");
+				entity	= entity[1];
+
 				dt.on( 'draw', function () {
 					$("table[id^='list_'] tbody tr")
 						.click(function(){ openFormModal($(this)); })
@@ -127,9 +132,20 @@ $(function() {
 					clearSearchBtnHover( $(this), -2 );
                 });
 
-				{% if extaSctipt is defined %}
-					{% include extaSctipt %}
-				{% endif %}
+
+				$("div.dataTables_filter label").prepend(
+					'<div class="form-check form-check-inline">'+
+						'<label class="form-check-label" for="show_active">Show active</label>'+
+						'<input class="form-check-input" type="checkbox" id="show_active" name="show_active" value="option1" {{ showActive }} />'+
+					'</div>'
+				);
+
+				$("#show_active").on('change',function (event) {
+					let checked	= $(this).is(":checked") ? "checked" : "";
+					$("#searchStr").val('');
+					$("#showActive").val(checked);
+					$('form#form-resp').submit();
+				});
 			});
 
 	{% endif %}

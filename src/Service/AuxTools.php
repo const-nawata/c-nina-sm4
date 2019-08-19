@@ -68,14 +68,14 @@ class AuxTools implements AuxToolsInterface
 
 	public function saveState( array $params ): void
 	{
-		if( !file_exists(self::_state_file) ){
-			$state	= self::getDefaultState();
-		}else{
-			$state	= file_get_contents(self::_state_file);
-			$state	= unserialize( $state );
-		}
+		$state	= ( !file_exists(self::_state_file) )
+			? self::getDefaultState()
+			: unserialize( file_get_contents(self::_state_file) );
 
-		$state	= array_merge($state, $params);
+		foreach( $params as $flag => $data )
+			foreach( $data as $entity => $value )
+				$state["$flag"]["$entity"]	= $value;
+
 		$state	= serialize($state);
 		file_put_contents(self::_state_file, $state);
 	}
@@ -86,10 +86,11 @@ class AuxTools implements AuxToolsInterface
 	 */
 	private static function getDefaultState(): array
 	{
-
 		return [
-			'showSold'	=> '',
-			'showInactive'	=> ''
+			'showActive'	=> [
+				'product'	=> 'checked',
+				'category'	=> 'checked'
+			]
 		];
 	}
 //______________________________________________________________________________

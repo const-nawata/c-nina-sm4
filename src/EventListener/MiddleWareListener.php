@@ -43,19 +43,22 @@ class MiddleWareListener
 //______________________________________________________________________________
 
 	/**
-	 * @param string $ind
+	 * @param string $res
 	 * @param array $args
 	 */
-	private function processShowIndex( string $ind, array $args ): void
+	private function processShowIndex( string $res, array $args ): void
 	{
+		list($entity, $ind )	= explode(':', $res);
+
 		if( $args[0]->request->has("$ind")){
-			$show_state	= $args[0]->request->get("$ind");
-			$this->tools->saveState(["$ind" => $show_state]);
+			$value	= $args[0]->request->get("$ind");
+			$this->tools->saveState(["$ind" => ["$entity" => $value]]);
 		}else{
-			$state		= $this->tools->getState();
-			$show_state	= $state["$ind"] ?? $state["$ind"];
+			$state	= $this->tools->getState();
+			$value	= $state["$ind"]["$entity"] ?? $state["$ind"]["$entity"];
 		}
-		$args[0]->request->add(["$ind" => $show_state]);
+
+		$args[0]->request->add(["$ind" => $value]);
 	}
 //______________________________________________________________________________
 
@@ -66,31 +69,11 @@ class MiddleWareListener
 
 		switch( $method ){
 			case 'App\Controller\ProductController::getProductsTable':
-//				if( $args[0]->request->has('showSold')){
-//					$show_sold	= $args[0]->request->get('showSold');
-//					$this->tools->saveState(['showSold' => $show_sold]);
-//				}else{
-//					$state		= $this->tools->getState();
-//					$show_sold	= $state['showSold'] ?? $state['showSold'];
-//				}
-//				$args[0]->request->add(['showSold' => $show_sold]);
-//
-
-				$this->processShowIndex('showSold', $args);
+				$this->processShowIndex('product:showActive', $args);
 			break;
 
 			case 'App\Controller\ProductCategoryController::getCategoriesTable':
-//				if( $args[0]->request->has('showInactive')){
-//					$show_inactive	= $args[0]->request->get('showInactive');
-//					$this->tools->saveState(['showInactive' => $show_inactive]);
-//				}else{
-//					$state		= $this->tools->getState();
-//					$show_inactive	= isset($state['showInactive']) ? $state['showInactive'] : '';
-//				}
-//				$args[0]->request->add(['showInactive' => $show_inactive]);
-
-
-				$this->processShowIndex('showInactive', $args);
+				$this->processShowIndex('category:showActive', $args);
 			break;
 		}
 

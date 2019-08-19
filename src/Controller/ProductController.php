@@ -99,7 +99,7 @@ class ProductController extends ControllerCore
 				},
 				'criteria' => [
 					function (QueryBuilder $builder) use ($post) {
-						empty( $post['showSold'])
+						!empty( $post['showActive'])
 							? $builder->andWhere('p.packs > 0 OR p.outPack > 0')
 							: $builder->andWhere('p.packs = 0')->andWhere('p.outPack = 0');
 					},
@@ -119,9 +119,8 @@ class ProductController extends ControllerCore
 			'headerTitle'	=> 'title.product.pl',
 			'itemPath'		=> 'product_form',
 			'searchStr'		=> empty($post['searchStr']) ? '' : $post['searchStr'],
-			'showSold'		=> empty($post['showSold']) ? '' : $post['showSold'],
-			'modalWidth'	=> 900,
-			'extaSctipt'	=> '/scripts/product.js.inc'
+			'showActive'	=> empty($post['showActive']) ? '' : $post['showActive'],
+			'modalWidth'	=> 900
 		]);
 	}
 
