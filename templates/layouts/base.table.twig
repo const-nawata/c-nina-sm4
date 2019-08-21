@@ -61,6 +61,7 @@ function openFormModal( obj ){
 					}else{
 						$('#modal_dialog').modal('toggle');
 						$("#searchStr").val(data.searchStr);
+						$("#showActive").val( data.showActive );
 						$('form#form-resp').submit();
 					}
 				}).fail(function() {
@@ -92,7 +93,6 @@ function clearSearchBtnHover( obj, size ){
 	new_size	= obj.css("padding-right");
 	obj.css("padding-right",((parseInt(new_size.substring(0,(new_size.length-2))) - size/2 )+"px"));
 }
-
 
 $(function() {
 	{% if datatable != null %}
@@ -131,7 +131,6 @@ $(function() {
                 $("div.dataTables_filter label button.clear-search").on('mouseup',function (event) {
 					clearSearchBtnHover( $(this), -2 );
                 });
-
 
 				$("div.dataTables_filter label").prepend(
 					'<div class="form-check form-check-inline">'+

@@ -164,7 +164,12 @@ class ProductController extends ControllerCore
 			$con->rollBack();
 		}
 
-		return new JsonResponse([ 'success'	=> $success, 'error' => $error, 'searchStr' => $search, 'showSold' => 'checked'  ]);
+		return new JsonResponse([
+			'success'	=> $success,
+			'error'		=> $error,
+			'searchStr'	=> $search,
+			'showActive'=> ($product->getPacks() == 0 && $product->getOutPack() == 0 ? '' : 'checked')
+		]);
 	}
 //______________________________________________________________________________
 
