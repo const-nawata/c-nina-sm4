@@ -191,7 +191,12 @@ class ProductCategoryController extends ControllerCore
 			$con->rollBack();
 		}
 
-		return new JsonResponse([ 'success'	=> $success, 'error' => $error, 'searchStr' => $search ]);
+		return new JsonResponse([
+			'success'	=> $success,
+			'error'		=> $error,
+			'searchStr'	=> $search,
+			'showActive'=> ($category->getIsActive() ? 'checked' : '')
+		]);
 	}
 //______________________________________________________________________________
 
