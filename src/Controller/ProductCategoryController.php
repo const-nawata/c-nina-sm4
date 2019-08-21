@@ -100,6 +100,7 @@ class ProductCategoryController extends ControllerCore
 		return $this->show($request, 'layouts/base.table.twig', [
 			'datatable'		=> $table,
 			'headerTitle'	=> 'title.category.pl',
+			'isActiveTitle'	=> 'title.showActive',
 			'table'			=> ['width' => 6],
 			'itemPath'		=> 'category_form',
 			'searchStr'		=> empty($post['searchStr']) ? '' : $post['searchStr'],

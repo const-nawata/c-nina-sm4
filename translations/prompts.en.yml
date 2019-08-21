@@ -64,8 +64,8 @@ title:
         pl: poducts
     registering: register
     search: 'search'
-    showInactive: 'Show inactive'
-    showsold: 'Show sold'
+    showActive: 'Show active'
+    showInStock: 'Show in stock'
     sign-in: 'Please sign in'
     user: user
 

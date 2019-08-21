@@ -64,8 +64,8 @@ title:
         pl: товары
     registering: регистрация
     search: 'поиск'
-    showInactive: 'Показать неактивные'
-    showsold: 'Показать проданные'
+    showActive: 'Показать активные'
+    showInStock: 'Показать в наличии'
     sign-in: 'Пожалуйста, войдите'
     user: пользователь
 
