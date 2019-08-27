@@ -7,10 +7,6 @@
 	<button id="0" type="button" item="0" data-toggle="modal" data-target="#modal_dialog"  class="btn btn-success oi oi-plus" title="{{ 'title.create'|trans|capitalize }}"></button>
 </nav>
 
-{% if table is not defined %}
-	{% set table = {} %}
-{% endif %}
-
 {% if table.width is not defined or table.width > 12 or table.width < 1 %}
     {% set table = table|merge({'width': 12}) %}
 {% endif %}
@@ -22,7 +18,7 @@
 </div>
 
 <form id="form-resp" action="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" method="post">
-	<input type="hidden" name="searchStr" id="searchStr" value="{{ searchStr }}" />
+	<input type="hidden" name="searchStr" id="searchStr" value="{{ table.search }}" />
 
 {% if input.isActive is defined %}
 	<input type="hidden" name="showActive" id="showActive" value="{{ input.isActive.status }}" />
@@ -99,8 +95,8 @@ function clearSearchBtnHover( obj, size ){
 }
 
 $(function() {
-	{% if datatable != null %}
-		$('#table_body').initDataTables( {{ datatable_settings(datatable) }} )
+	{% if table.data != null %}
+		$('#table_body').initDataTables( {{ datatable_settings(table.data) }} )
 			.then( function() {
 				let entity	= $("table[id^='list_']").attr("id");
 				entity	= entity.split("_");
@@ -120,7 +116,7 @@ $(function() {
 					.attr("data-target", "#modal_dialog")
 				;
 
-				dt.search( "{{ searchStr }}" ).draw();
+				dt.search( "{{ table.search }}" ).draw();
 
 				$("div.dataTables_filter label").append('<button type="button" class="btn oi oi-circle-x clear-search" title="{{ 'hint.clear_filer'|trans }}"></button>');
 

@@ -48,11 +48,14 @@ class CurrencyController extends ControllerCore
 		}
 
 		return $this->show($request, 'layouts/base.table.twig', [
-			'datatable'		=> $table,
+			'table'	=> [
+				'data'	=> $table,
+				'width' => 6,
+				'search'=> empty($post['searchStr']) ? '' : $post['searchStr']
+			],
+
 			'headerTitle'	=> 'title.currency',
-			'table'			=> ['width' => 6],
 			'itemPath'		=> 'currency_form',
-			'searchStr'		=> empty($post['searchStr']) ? '' : $post['searchStr'],
 		]);
 	}
 //______________________________________________________________________________

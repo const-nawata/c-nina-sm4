@@ -114,10 +114,13 @@ class ProductController extends ControllerCore
 		}
 
 		return $this->show($request, 'layouts/base.table.twig', [
-			'datatable'		=> $table,
+			'table'	=> [
+				'data'	=> $table,
+				'search'=> empty($post['searchStr']) ? '' : $post['searchStr']
+			],
+
 			'headerTitle'	=> 'title.product.pl',
 			'itemPath'		=> 'product_form',
-			'searchStr'		=> empty($post['searchStr']) ? '' : $post['searchStr'],
 			'modalWidth'	=> 900,
 
 			'input'		=> [
