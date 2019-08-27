@@ -179,8 +179,18 @@ class ProductController extends ControllerCore
 		return new JsonResponse([
 			'success'	=> $success,
 			'error'		=> $error,
-			'searchStr'	=> $search,
-			'showActive'=> ($product->getPacks() == 0 && $product->getOutPack() == 0 ? '' : 'checked')
+
+			'table'	=> [
+				'input'	=> [
+					'search'=> [
+						'value'	=> $search
+					],
+
+					'isActive'	=> [
+						'value'	=> ($product->getPacks() == 0 && $product->getOutPack() == 0 ? '' : 'checked')
+					]
+				]
+			]
 		]);
 	}
 //______________________________________________________________________________

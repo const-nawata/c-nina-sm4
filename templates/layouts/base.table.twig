@@ -60,8 +60,8 @@ function openFormModal( obj ){
 						$("#err_"+data.error.field).html(data.error.message);
 					}else{
 						$('#modal_dialog').modal('toggle');
-						$("#searchStr").val(data.searchStr);
-						$("#showActive").val( data.showActive );
+						$("#searchStr").val(data.table.input.search.value);
+						$("#showActive").val( data.table.input.isActive.value );
 						$('form#form-resp').submit();
 					}
 				}).fail(function() {

@@ -176,8 +176,18 @@ class ProductCategoryController extends ControllerCore
 		return new JsonResponse([
 			'success'	=> $success,
 			'error'		=> $error,
-			'searchStr'	=> $search,
-			'showActive'=> ($category->getIsActive() ? 'checked' : '')
+
+			'table'	=> [
+				'input'	=> [
+					'search'=> [
+						'value'	=> $search
+					],
+
+					'isActive'	=> [
+						'value'	=> ($category->getIsActive() ? 'checked' : '')
+					]
+				]
+			]
 		]);
 	}
 //______________________________________________________________________________
