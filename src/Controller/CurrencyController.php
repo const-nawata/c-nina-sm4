@@ -51,7 +51,12 @@ class CurrencyController extends ControllerCore
 			'table'	=> [
 				'data'	=> $table,
 				'width' => 6,
-				'search'=> empty($post['searchStr']) ? '' : $post['searchStr']
+
+				'input'		=> [
+					'search'=> [
+						'value'	=> empty($post['searchStr']) ? '' : $post['searchStr']
+					]
+				]
 			],
 
 			'headerTitle'	=> 'title.currency',

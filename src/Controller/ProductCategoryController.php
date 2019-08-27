@@ -71,18 +71,21 @@ class ProductCategoryController extends ControllerCore
 			'table'	=> [
 				'data'	=> $table,
 				'width' => 6,
-				'search'=> empty($post['searchStr']) ? '' : $post['searchStr']
+
+				'input'		=> [
+					'search'=> [
+						'value'	=> empty($post['searchStr']) ? '' : $post['searchStr']
+					],
+
+					'isActive'	=> [
+						'title'		=> 'title.showActive',
+						'value'	=> empty($post['showActive']) ? '' : $post['showActive']
+					]
+				]
 			],
 
 			'headerTitle'	=> 'title.category.pl',
 			'itemPath'		=> 'category_form',
-
-			'input'		=> [
-				'isActive'	=> [
-					'title'		=> 'title.showActive',
-					'status'	=> empty($post['showActive']) ? '' : $post['showActive']
-				]
-			]
 		]);
 	}
 //______________________________________________________________________________

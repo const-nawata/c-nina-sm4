@@ -18,10 +18,10 @@
 </div>
 
 <form id="form-resp" action="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" method="post">
-	<input type="hidden" name="searchStr" id="searchStr" value="{{ table.search }}" />
+	<input type="hidden" name="searchStr" id="searchStr" value="{{ table.input.search.value }}" />
 
 {% if input.isActive is defined %}
-	<input type="hidden" name="showActive" id="showActive" value="{{ input.isActive.status }}" />
+	<input type="hidden" name="showActive" id="showActive" value="{{ table.input.isActive.value }}" />
 {% endif %}
 
 </form>
@@ -116,7 +116,7 @@ $(function() {
 					.attr("data-target", "#modal_dialog")
 				;
 
-				dt.search( "{{ table.search }}" ).draw();
+				dt.search( "{{ table.input.search.value }}" ).draw();
 
 				$("div.dataTables_filter label").append('<button type="button" class="btn oi oi-circle-x clear-search" title="{{ 'hint.clear_filer'|trans }}"></button>');
 
@@ -133,11 +133,11 @@ $(function() {
                 });
 
 
-		{% if input.isActive is defined %}
+		{% if table.input.isActive is defined %}
 				$("div.dataTables_filter label").prepend(
 					'<div class="form-check form-check-inline">'+
-						'<label class="form-check-label" for="show_active">{{ input.isActive.title|trans }}</label>'+
-						'<input class="form-check-input" type="checkbox" id="show_active" name="show_active" value="option1" {{ input.isActive.status }} />'+
+						'<label class="form-check-label" for="show_active">{{ table.input.isActive.title|trans }}</label>'+
+						'<input class="form-check-input" type="checkbox" id="show_active" name="show_active" value="option1" {{ table.input.isActive.value }} />'+
 					'</div>'
 				);
 
