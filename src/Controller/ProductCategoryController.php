@@ -38,6 +38,7 @@ class ProductCategoryController extends ControllerCore
 			->setTemplate('pages/product_category/table.template.twig')
 			->add('name', TextColumn::class,[])
 
+
 //	----------  Left as example. See "templates/pages/product_category/table.template.twig"
 
 //			->add('isActive', TextColumn::class,[
