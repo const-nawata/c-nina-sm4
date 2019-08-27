@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
+ * @ORM\Table(name="products")
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
  * @UniqueEntity(
  *     fields={"article"},
