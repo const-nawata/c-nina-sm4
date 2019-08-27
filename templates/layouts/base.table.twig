@@ -23,7 +23,11 @@
 
 <form id="form-resp" action="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" method="post">
 	<input type="hidden" name="searchStr" id="searchStr" value="{{ searchStr }}" />
-	<input type="hidden" name="showActive" id="showActive" value="{{ showActive }}" />
+
+{% if input.isActive is defined %}
+	<input type="hidden" name="showActive" id="showActive" value="{{ input.isActive.status }}" />
+{% endif %}
+
 </form>
 
 {% include '/dialogs/modal.twig' %}
@@ -132,10 +136,12 @@ $(function() {
 					clearSearchBtnHover( $(this), -2 );
                 });
 
+
+		{% if input.isActive is defined %}
 				$("div.dataTables_filter label").prepend(
 					'<div class="form-check form-check-inline">'+
-						'<label class="form-check-label" for="show_active">{{ isActiveTitle|trans }}</label>'+
-						'<input class="form-check-input" type="checkbox" id="show_active" name="show_active" value="option1" {{ showActive }} />'+
+						'<label class="form-check-label" for="show_active">{{ input.isActive.title|trans }}</label>'+
+						'<input class="form-check-input" type="checkbox" id="show_active" name="show_active" value="option1" {{ input.isActive.status }} />'+
 					'</div>'
 				);
 
@@ -145,6 +151,8 @@ $(function() {
 					$("#showActive").val(checked);
 					$('form#form-resp').submit();
 				});
+		{% endif %}
+
 			});
 
 	{% endif %}

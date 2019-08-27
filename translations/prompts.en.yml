@@ -47,6 +47,7 @@ title:
         sn: category
         pl: categories
     create: create
+    currency: currency
     dashboard: dashboard
     deactivate: deactivate
     delete: delete

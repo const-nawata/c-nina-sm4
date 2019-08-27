@@ -47,6 +47,7 @@ title:
         sn: категория
         pl: категории
     create: создать
+    currency: валюта
     dashboard: настройка
     deactivate: деактивировать
     delete: удалить
